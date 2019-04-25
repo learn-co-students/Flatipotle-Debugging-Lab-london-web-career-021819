@@ -12,13 +12,18 @@ const DEFAULT_STATE = {
 }
 
 class Form extends Component {
-  state = {
-    ...DEFAULT_STATE
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...DEFAULT_STATE
+    }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleOnChange = this.handleOnChange.bind(this)
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
     event.preventDefault()
-    document.getElementById("order-form").reset()
+    document.getElementById("order-form").reset()    
     this.props.addOrder(this.state)
 
     this.setState({
@@ -26,10 +31,11 @@ class Form extends Component {
     })
   }
 
-  handleChange() {
+  handleOnChange(event) {
     const itemType = event.target.name
     const item = event.target.value
-
+    console.log(item + ' ' + itemType);
+    
     !this.state[`${itemType}`].includes(item) ?
       this.setState({
         [itemType]: this.state[`${itemType}`].concat(item)
@@ -49,22 +55,22 @@ class Form extends Component {
         <form className="ui form" id="order-form" onSubmit={ this.handleSubmit }>
           <ProteinForm
             protein={ this.state.protein }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ this.handleOnChange }
           />
 
           <FillingForm
             fillings={ this.state.fillings }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ this.handleOnChange }
           />
 
           <ToppingForm
             toppings={ this.state.toppings }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ this.handleOnChange }
           />
 
           <SideForm
             sides={ this.state.sides }
-            handleOnChange={ this.handleChange }
+            handleOnChange={ this.handleOnChange }
           />
 
           <br />
