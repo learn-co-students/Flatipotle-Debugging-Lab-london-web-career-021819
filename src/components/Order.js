@@ -12,6 +12,7 @@ class Order extends Component {
   })
 }
 
+
   render() {
     return (
       <div className="ui centered raised card">
